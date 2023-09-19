@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    html {
+        font-family: 'Inter', sans-serif;
+    }
+  }
+
+  .progress-step-border{
+    @apply border-customGrey2 border-[2px] bg-white w-8 h-8 rounded-full flex items-center justify-center;
+  }
+
+  .progress-step-complete{
+    @apply border-none w-8 h-8 rounded-full flex items-center justify-center;
+  }
+  .step-complete{
+    @apply h-full w-full flex items-center justify-center rounded-full text-white;
+  }
+
+
+  .image{
+    width: 30%;
+    height: 20%;
+  }
+
+  .image img{
+    display: block;
+    width: 100%;
+  }
+
+  .pagination{
+    /* border: 2px solid gray; */
+    border-radius: 5px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+    padding: 8px 1px;
+    font-size: 1.2rem;
+}
+
+.pagination .page-num{
+    border: 0.1rem solid gray;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.pagination .page-num:hover{
+    border: 2px solid gray;
+    background-color: rgb(233, 239, 239);
+}
+
+

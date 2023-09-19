@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+
+body{
+    font-family: 'Inter', sans-serif;
+    height: 100%;
+    margin: 0;
+}
+
+.stepper .item-step .dot{
+    background-color: #D1D5DB;
+    height: .5rem;
+    width: .5rem;
+}
+
+.stepper .item-step-current .dot{
+    background-color:  #F06A30;
+    
+}
+.stepper .item-step{
+    background: white;
+    height: 1.8rem;
+    width: 1.8rem;
+    border: 2px solid #9CA3AF;
+}
+
+.stepper .item-step-current {
+    border: 2px solid #F06A30;
+}
+
+.stepper .item-step-active{
+    background: #F06A30;
+    border: #F06A30;
+}
+
+.container-stepper .line{
+    top: 33%;
+    width: 90%;
+}
+
+.container-stepper .progress{
+    top: 33%;
+}
+
+.stepper .item-step::after{
+    font-weight: bold;
+}
+
+.slick-slide > div {
+    margin: 0 10px;
+}
+
+.slick-list {
+    margin: 0 -10px;
+}
