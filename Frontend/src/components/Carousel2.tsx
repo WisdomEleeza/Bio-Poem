@@ -41,7 +41,7 @@ function SampleNextArrow({ onClick }: SampleArrowProps) {
   return (
     <div
       onClick={onClick}
-      className="rounded-full border-2 border-[#F06A30] h-10 w-10 flex items-center justify-center ml-5 absolute -right-12 bottom-40 cursor-pointer"
+      className="rounded-full border-2 border-[#F06A30] h-10 w-10 flex items-center justify-center ml-5 absolute -right-12 bottom-20 cursor-pointer"
     >
       <LiaArrowRightSolid />
     </div>
@@ -52,7 +52,7 @@ function SamplePrevArrow({ onClick }: SampleArrowProps) {
   return (
     <div
       onClick={onClick}
-      className="rounded-full border-2 border-[#F06A30] h-10 w-10 flex items-center justify-center mr-5 absolute -left-12 bottom-40 cursor-pointer"
+      className="rounded-full border-2 border-[#F06A30] h-10 w-10 flex items-center justify-center mr-5 absolute -left-12 bottom-20 cursor-pointer"
     >
       <LiaArrowLeftSolid />
     </div>
@@ -81,7 +81,7 @@ const Carousel2: React.FC = () => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
     nextArrow: <SampleNextArrow onClick={() => {}} />,
@@ -125,19 +125,18 @@ const Carousel2: React.FC = () => {
 
   const toggle = useAppSelector((state)=>state.darkMode.toggle)
   return (
-    <div className="h-[500px] w-auto mt-5 mr-auto">
+    <div className="h-[400px] w-[1017px] mt-5 mr-auto">
       <h1 className="text-2xl font-medium py-7">Popular Poems</h1>
-      <Slider {...settings} className="">
+      <Slider {...settings} className="relative left-12">
         {popularPoems?.map((ele) => (
-          <div
-            className="overflow-hidden border-4 border-[#F06A30] rounded-md "
+          <div className="h-[193px] overflow-hidden border-4 border-[#F06A30] rounded-md "
             key={ele._id}
           >
             <div className={`group [perspective:1000px] ${toggle ? 'bg-black' : ''}`}>
               <div className="inset-0 transition-all duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                 <div className="bg-white">
                   <img
-                    className="object-cover w-[100%] h-[250px]"
+                    className="object-contain w-60 h-[100px]"
                     src={user}
                     alt=""
                   />
@@ -157,14 +156,14 @@ const Carousel2: React.FC = () => {
 
                 <div className="absolute inset-0 h-full w-full rounded-xl bg-white px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
                   <div className="flex flex-col min-h-full items-center justify-center py-10">
-                    <ul className="text-[#646363] text-lg font-light">
+                    <ul className="absolute top-0 text-[#646363] text-lg font-light">
                         <li>{ele.adjectives}</li>
                         <li>{ele.importantRelation}</li>
                         <li>Loves to{" "} {ele.loves}</li>
                       </ul>
                     <button
                       onClick={() => handleShowSinglePoem(ele)}
-                      className="mt-2 rounded-md border-[#A5A2A2] border-2 bg-[#F06A30] py-3 px-7 text-white"
+                      className="absolute bottom-2 mt-2 rounded-md border-[#A5A2A2] border-2 bg-[#F06A30] py-2 px-4 text-white"
                     >
                       View Poem
                     </button>
@@ -175,7 +174,6 @@ const Carousel2: React.FC = () => {
           </div>
         ))}
       </Slider>
-      {/* <Modal /> */}
     </div>
   );
 };

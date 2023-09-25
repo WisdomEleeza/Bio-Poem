@@ -27,8 +27,12 @@ const SideBar = () => {
       }, [window.location.pathname]);
 
     const handleSectionClick = (section:any) => {
+        
         setActiveSection(section)
         if(section==='search'){
+            if(!openSearch){
+                setActiveSection(window.location.pathname)
+            }
         dispatch(setOpenSearch())
 
         }else if(section==='/'){
@@ -38,6 +42,7 @@ const SideBar = () => {
             navigate('/create')
             dispatch(resetSearchState())
         }
+        
       };
       
 

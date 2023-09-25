@@ -1,14 +1,36 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
-import { data } from "./formSlice"
 
 interface SearchState {
     openSearch: boolean,
     loading: boolean,
     response: PoemData 
 }
+export interface usersId {
+    "_id":  string
+    "username": string
+    "profileImage": string
+  }
+  
+export type data = {
+    "_id": string  
+    "firstName":string
+    "adjectives": string
+    "importantRelation": string
+    "loves": string
+    "feelings": string
+    "fears": string
+    "accomplishments": string
+    "expectations": string
+    "residence": string
+    "lastName": string
+    "backgroundTheme": string
+    "user": usersId
+    "userName": string
+      
+  }
 
-type PoemData = {
+export type PoemData = {
     success: boolean;
     poems: data[]
 }

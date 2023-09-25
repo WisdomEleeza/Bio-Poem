@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export interface user {
+  "_id":  string
+  "username": string
+  "profileImage": string
+}
 export interface singlePoem {
     _id: string
     firstName: string
@@ -13,7 +18,7 @@ export interface singlePoem {
     residence: string
     lastName: string
     backgroundTheme: string
-    user: string
+    user: user
     upvotes: number,
     downvotes: number,
     createdAt: string,

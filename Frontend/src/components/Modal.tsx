@@ -5,7 +5,8 @@ import { useAppDispatch, useAppSelector } from "../store/store";
 import { setShowModal } from "../store/poemSlice";
 import { Poem } from "./Carousel2";
 import axios from 'axios'
-import {useState,} from 'react'
+import { useRef } from 'react';
+// import {useState,} from 'react'
 
 interface ModalProps {
   poems?: Poem[];
@@ -24,37 +25,38 @@ const Modal: React.FC<ModalProps> = () => {
   const visible = useAppSelector((state) => state.poem.showModal);
   const singlePoem = useAppSelector((state) => state.poem.singlePoem);
 
-  const [upvoted, setUpVoted] = useState(false)
-  const [downvoted, setDownvoted] = useState(false);
+  const voteCountRef = useRef(null);
+  const downVoteCountRef = useRef(null);
+
  
   const upvotePoem = async () => {
-    if (!upvoted){
       const url = `https://bio-poem.onrender.com/api/v1/poems/${singlePoem._id}/upvote`;
       try {
         const response = await axios.post(url);
-        setUpVoted(true)
-        setDownvoted(false)
+       if (voteCountRef.current){
+        const currentCount = parseInt(voteCountRef.current.textContent, 10);
+        voteCountRef.current.textContent = currentCount + 1;
         console.log('uptake', response);
-        
+       } 
     } catch (error) {
       console.log(error);
       throw error;
-    }
     }
   }
 
   const downvotePoem = async () => {
-    if (!downvoted) {
+    // if (!downvoted) {
       const url = `https://bio-poem.onrender.com/api/v1/poems/${singlePoem._id}/downvote`;
       try {
         const response = await axios.post(url);
-        setDownvoted(true);
-        setUpVoted(false);
+        if (downVoteCountRef.current) {
+        const currentCount = parseInt(downVoteCountRef.current.textContent, 10);
+        downVoteCountRef.current.textContent = currentCount + 1;
         console.log('downtake', response);
+        }
     } catch (error) {
       console.log(error);
       throw error;
-    }
     }
 }
 
@@ -134,10 +136,10 @@ const Modal: React.FC<ModalProps> = () => {
   
         </div>
         <div className="flex items-center gap-2 ml-24">
-          <BiUpvote className={`cursor-pointer ${upvoted ? 'active' : ''}`} onClick={upvotePoem} style={upvoted !== false && {fill: 'red'}}/>
-          <span>{upvoted ? singlePoem.upvotes + 1 : singlePoem.upvotes}</span>
-          <BiDownvote className={`cursor-pointer ${downvoted ? 'active' : ''}`} onClick={downvotePoem} style={downvoted !== false && {fill: 'red'}} />
-          <span>{downvoted ? singlePoem.downvotes +1 : singlePoem.downvotes}</span>
+          <BiUpvote className="cursor-pointer" onClick={upvotePoem}/>
+          <span ref={voteCountRef}>{singlePoem.upvotes}</span>
+          <BiDownvote className="cursor-pointer" onClick={downvotePoem}/>
+          <span ref={downVoteCountRef}>{singlePoem.downvotes}</span>
         </div>
       </div>
     </div>
