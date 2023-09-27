@@ -8,6 +8,8 @@ import { addRecentSearch } from '../store/recentSearchSlice';
 import { data } from '../store/searchSlice';
 import { PoemData } from '../store/searchSlice';
 import profile from '../assets/user.png'
+import { Poem } from './Carousel2';
+
 
 export interface poemArr {
     poems: data[]
@@ -28,9 +30,10 @@ const SearchPoem = () => {
  
   console.log(searchResponse);
   
-  const handleShowSinglePoem = (data: any) => {
-    dispatch(setPoemSingleData(data)) 
+  const handleShowSinglePoem = (poem: Poem) => {
+    console.log("Poem", poem);  
     dispatch(setShowModal());
+    dispatch(setPoemSingleData(poem)) 
   };
 
   useEffect(() => {
@@ -118,7 +121,7 @@ const SearchPoem = () => {
       ) : (
         <>
           {searchResults.length !== 0 ? (<>
-            {searchResults.slice(0,displayedDivs).map((ele:data) => (
+            {searchResults.slice(0,displayedDivs).map((ele:Poem) => (
             <div className="flex gap-x-28 mb-[30px] px-3.5 w-full justify-between" key={ele._id}>
               <div className="flex items-center">
                 <img src={ele.user.profileImage? ele.user.profileImage : profile} alt="profile" className="rounded-[50%] w-[55px] h-[55px]" />
@@ -142,7 +145,7 @@ const SearchPoem = () => {
           )
           :(
             <>
-              {searchResults.slice(0,displayedDivs).map((ele:data) => (
+              {searchResults.slice(0,displayedDivs).map((ele:Poem) => (
             <div className="flex gap-x-28 mb-[30px] px-3.5 w-full justify-between" key={ele._id}>
               <div className="flex items-center">
                 <img src={ele.user.profileImage ? ele.user.profileImage : profile} alt="profile" className="rounded-[50%] w-[55px] h-[55px]" />

@@ -1,7 +1,7 @@
 import { FormSection } from "./FormSection"
 import { BsArrowLeft } from "react-icons/bs"
 import { BsArrowRight } from "react-icons/bs"
-import { forward, back, submitPoemAnswers, submitAnswers, finishedPoem } from "../store/formSlice"
+import { forward, back, submitAnswers, finishedPoem, submitPoemAnswers } from "../store/formSlice"
 import { questions } from "../questionsData"
 import { CardTheme } from "./CardTheme"
 import { useAppDispatch, useAppSelector } from '../store/store'
@@ -21,16 +21,22 @@ export const Questions: React.FC<Props> = ({currentPage}) => {
     
     const answers = useAppSelector((state)=> state.form.answers);
     const userId = useAppSelector((state)=> state.user.userId);
-    const status = useAppSelector(state=> state.form.status);
 
     const values = Object.values(answers);
+    // console.log(values);
+    
 
     const handleSubmit = () => {
-    const data : finishedPoem = {data: answers, id: userId}
+        const allAreEmpty = values.slice(0, 11).every(value => value === '')
+        if(allAreEmpty){
+            toast.warn("Answer all questions")
+        } else {
+        const data : finishedPoem = {data: answers, id: userId}
         console.log(data);
         dispatch(submitAnswers(data))
         dispatch(submitPoemAnswers())
     }
+}
     
 
     const firstPage = questions.slice(0, 4);
@@ -77,7 +83,7 @@ export const Questions: React.FC<Props> = ({currentPage}) => {
             />         
         )}
 
-        { currentPage === 4 ? <CardTheme loading={status}/> : undefined }
+        { currentPage === 4 ? <CardTheme /> : undefined }
 
         { currentPage === 5 ? <Complete/> : undefined}
 
@@ -109,7 +115,6 @@ export const Questions: React.FC<Props> = ({currentPage}) => {
             : 
             undefined 
         }
-        
     </form>
     )
 }

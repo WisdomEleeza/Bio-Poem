@@ -2,20 +2,30 @@ import none from '../assets/null.png'
 import defaultPattern from '../assets/default-pattern.png'
 import { CardPreview } from './CardPreview'
 import { useAppDispatch, useAppSelector } from '../store/store'
-import { changeThemeOption } from '../store/themeSlice'
+import { changeThemeOption, getPatterns } from '../store/themeSlice'
 import { selectTheme, setView } from '../store/formSlice'
-import { RotatingLines } from 'react-loader-spinner'
+// import { RotatingLines } from 'react-loader-spinner'
 import { PoemFont } from './PoemFont'
 import { Themes } from './Themes'
+import { useEffect } from 'react'
 
 export type load = {
     loading: string
 }
 
-export const CardTheme: React.FC<load> = ({loading}) => {
+// type Props = {
+//     currentPage: number,
+//     }
+
+export const CardTheme: React.FC = () => {
     const dispatch = useAppDispatch()
     const currentOption = useAppSelector((state) => state.theme.theme)
     const view = useAppSelector(state=> state.form.view);
+    const patterns = useAppSelector(state=> state.theme.patterns)
+    console.log(patterns.data);
+    
+    // const status = useAppSelector(state=> state.form.status);
+
 
     if(currentOption != 'none' && view){
         dispatch(setView())
@@ -26,12 +36,15 @@ export const CardTheme: React.FC<load> = ({loading}) => {
         dispatch(selectTheme({theme:'#FFFFFF'}))
     }
 
-
+    useEffect(() => {
+        dispatch(getPatterns())
+    }, [dispatch])
+    
 
     return (
         <>
-            { loading === 'Loading...' ? 
-            <div className='mx-auto flex justify-center items-center mt-56'>
+            {/* { currentPage === 4 && status === 'Loading...' ? 
+            <div className='mx-auto flex justify-center items-center mt-6'>
             <RotatingLines
                 strokeColor="#F06A30"
                 strokeWidth="5"
@@ -40,7 +53,7 @@ export const CardTheme: React.FC<load> = ({loading}) => {
                 visible={true}
             />
             </div> 
-            :
+            : */}
                 <div className="mt-10">
                     <div className="font-semibold text-xl mb-6">11. Choose a background or theme for your card</div>
                     {/* Select theme */}
@@ -76,7 +89,7 @@ export const CardTheme: React.FC<load> = ({loading}) => {
                     <PoemFont/>
                     <CardPreview/>
                 </div>
-            }
+            {/* } */}
         </>
     )
 }

@@ -11,7 +11,7 @@ const Pagination = () => {
     const total = useAppSelector(state=> state.poem.total)
     const hasMore = useAppSelector(state=> state.poem.hasMore)
     // const [poemsPerPage, setPoemsPerPage] = useState(12)
-    const openSearch = useAppSelector((state)=>state.search.openSearch)
+    // const openSearch = useAppSelector((state)=>state.search.openSearch)
     const poemsPerPage =  12 ;
     const pageNumbers: number[] = []
     const [currentPage, setCurrentPage ] = useState(1);

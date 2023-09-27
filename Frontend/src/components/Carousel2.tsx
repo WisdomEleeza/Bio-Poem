@@ -23,6 +23,8 @@ export interface Poem {
   downvotes: number;
   backgroundTheme: string;
   profileImage: string;
+  fontColor: string;
+  fontFamily:string;
   user: User
 }
 
@@ -129,15 +131,15 @@ const Carousel2: React.FC = () => {
       <h1 className="text-2xl font-medium py-7">Popular Poems</h1>
       <Slider {...settings} className="relative left-12">
         {popularPoems?.map((ele) => (
-          <div className="h-[193px] overflow-hidden border-4 border-[#F06A30] rounded-md "
+          <div className="h-[193px] overflow-hidden border-4 border-[#F06A30] rounded-md"
             key={ele._id}
           >
             <div className={`group [perspective:1000px] ${toggle ? 'bg-black' : ''}`}>
               <div className="inset-0 transition-all duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                 <div className="bg-white">
                   <img
-                    className="object-contain w-60 h-[100px]"
-                    src={user}
+                    className="object-cover w-60 h-[100px]"
+                    src={ele.user.profileImage ? ele.user.profileImage : user}
                     alt=""
                   />
                 </div>

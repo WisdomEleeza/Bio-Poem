@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { RotatingLines } from 'react-loader-spinner'
 
 
+
 type Props = {
   currentPage: number,
   }
@@ -16,6 +17,7 @@ type Props = {
 
 export const UserInput: React.FC<Props> = ({currentPage}) => {
   const dispatch = useAppDispatch();
+
 
   const userName = useAppSelector(state=> state.user.userName);
   const profileImg = useAppSelector(state=> state.userProfile.userImage)  

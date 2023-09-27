@@ -6,7 +6,6 @@ import { setShowModal } from "../store/poemSlice";
 import { Poem } from "./Carousel2";
 import axios from 'axios'
 import { useRef } from 'react';
-// import {useState,} from 'react'
 
 interface ModalProps {
   poems?: Poem[];
@@ -24,9 +23,12 @@ const Modal: React.FC<ModalProps> = () => {
   
   const visible = useAppSelector((state) => state.poem.showModal);
   const singlePoem = useAppSelector((state) => state.poem.singlePoem);
+  const show = useAppSelector(state => state.poem.showModal);
 
-  const voteCountRef = useRef(null);
-  const downVoteCountRef = useRef(null);
+  console.log(show);
+  
+  const voteCountRef = useRef<HTMLSpanElement>(null);
+  const downVoteCountRef = useRef<HTMLSpanElement>(null);
 
  
   const upvotePoem = async () => {
@@ -34,8 +36,10 @@ const Modal: React.FC<ModalProps> = () => {
       try {
         const response = await axios.post(url);
        if (voteCountRef.current){
-        const currentCount = parseInt(voteCountRef.current.textContent, 10);
-        voteCountRef.current.textContent = currentCount + 1;
+        const currentCount = parseInt(voteCountRef.current.textContent || '0', 10);
+        // voteCountRef.current.textContent = currentCount + 1;
+        const newCount = currentCount + 1;
+        voteCountRef.current.textContent = newCount.toString();
         console.log('uptake', response);
        } 
     } catch (error) {
@@ -50,8 +54,9 @@ const Modal: React.FC<ModalProps> = () => {
       try {
         const response = await axios.post(url);
         if (downVoteCountRef.current) {
-        const currentCount = parseInt(downVoteCountRef.current.textContent, 10);
-        downVoteCountRef.current.textContent = currentCount + 1;
+        const currentCount = parseInt(downVoteCountRef.current.textContent || '0', 10);
+        const newCount = currentCount + 1;
+        downVoteCountRef.current.textContent = newCount.toString();
         console.log('downtake', response);
         }
     } catch (error) {
@@ -60,10 +65,8 @@ const Modal: React.FC<ModalProps> = () => {
     }
 }
 
-  const handleClose = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-
-  if (target.id === "container") {
+  const handleClose = () => {
+  if (show) {
     dispatch(setShowModal());
   }
   };
@@ -73,9 +76,9 @@ const Modal: React.FC<ModalProps> = () => {
   return (
     <div
       id="container"
-      onClick={handleClose}
+      // onClick={handleClose}
       className="h-full absolute inset-0 flex justify-center z-20 pt-4"
-      style={{backgroundColor: 'rgba(0,0,0, 0.45)'}}
+      style={{backgroundColor: 'rgba(0,0,0, 0.45)', color: singlePoem.fontColor, fontFamily: singlePoem.fontFamily}}
     >
       <div className="rounded-3xl w-4/12 fixed"
       style={{ background: singlePoem.backgroundTheme ? singlePoem.backgroundTheme : "#ffffff" }}>
@@ -103,22 +106,22 @@ const Modal: React.FC<ModalProps> = () => {
               />
             </div>
           )}
-            <p className="ml-5 font-medium text-2xl text-black">
+            <p className="ml-5 font-medium text-2xl">
               {singlePoem.firstName} {singlePoem.lastName}
             </p>
           </div>
 
           <VscClose
             className="text-xl hover:text-gray-400 cursor-pointer"
-            onClick={() => dispatch(setShowModal())}
+            onClick={handleClose}
           />
         </div>
 
         <div className="flex my-5">
           <div className="flex flex-col items-center ml-7 pt-1">
-            <div className="w-2 h-2 rounded-full bg-black"></div>
-            <div className="bg-black w-[2px] h-full"></div>
-            <div className="w-2 h-2 rounded-full bg-black"></div>
+            <div className="w-2 h-2 rounded-full" style={{background:singlePoem.fontColor}}></div>
+            <div className="w-[2px] h-full" style={{background:singlePoem.fontColor}}></div>
+            <div className="w-2 h-2 rounded-full" style={{background:singlePoem.fontColor}}></div>
           </div>
   
             <ul className="ml-16">

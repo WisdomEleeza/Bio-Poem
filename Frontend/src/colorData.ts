@@ -1,7 +1,7 @@
 export const colors = [
     {
         id: 1,
-        color: '#EF272775'
+        color: '#EF2727'
     }, 
     {
         id: 2,
@@ -13,15 +13,15 @@ export const colors = [
     },
     {
         id: 4,
-        color: '#3C65CCD6'
+        color: '#3C65CC'
     },
     {
         id: 5,
-        color: '#2FE53675'
+        color: '#2FE536'
     },
     {
         id: 6,
-        color: '#24800475'
+        color: '#248004'
     },
     {
         id: 7,
@@ -33,7 +33,7 @@ export const colors = [
     },
     {
         id: 9,
-        color: '#F3C10D75'
+        color: '#F3C10D'
     },
     {
         id: 10,
@@ -49,11 +49,11 @@ export const colors = [
     },
     {
         id: 13,
-        color: '#974C4C75'
+        color: '#974C4C'
     },
     {
         id: 14,
-        color: '#BBB47675'
+        color: '#BBB476'
     },
     {
         id: 15,
@@ -65,6 +65,6 @@ export const colors = [
     },
     {
         id: 17,
-        color: '#00000075'
+        color: '#000000'
     },
 ]

@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { payload } from '../components/FormSection'
-import { submitPoem } from "../submitPoem";
+// import { submitPoem } from "../submitPoem";
+import axios from "axios";
 
 export type data = {
     "firstName":string,
@@ -14,7 +15,8 @@ export type data = {
     "residence": string,
     "lastName": string,
     "backgroundTheme": string,
-    "fontColor": string
+    "fontColor": string,
+    "fontFamily": string
 }
 
 export type finishedPoem = {
@@ -51,7 +53,8 @@ const initialState: state = {
         "residence": "",
         "lastName": "",
         "backgroundTheme": "",
-        "fontColor": "#000000" 
+        "fontColor": "#000000",
+        "fontFamily": "Inter", 
     },
     status: 'null',
     view: false,
@@ -85,8 +88,11 @@ const formSlice = createSlice ({
         selectFontColor: (state: state, action: PayloadAction<string>)=> {
             state.answers.fontColor = action.payload;
         },
+        selectFontFamily: (state: state, action: PayloadAction<string>)=> {
+            state.answers.fontFamily = action.payload
+        },
         submitPoemAnswers: (state: state,) => {
-            state.page = 5
+                state.page = 5
         },
         setView: (state: state) => {
             state.view = !state.view
@@ -106,9 +112,11 @@ const formSlice = createSlice ({
                 "residence": "",
                 "lastName": "",
                 "backgroundTheme": "",
-                "fontColor": "#000000"
+                "fontColor": "#000000",
+                "fontFamily": "Inter"
             }
-            state.status = 'null'
+            state.status = 'null',
+            state.view = false
         }
     },
     extraReducers: (builder)=> {
@@ -118,6 +126,7 @@ const formSlice = createSlice ({
             })
             .addCase(submitAnswers.fulfilled, (state)=> {
                 state.status = 'Fulfilled'
+                // state.page = 5
             })
             .addCase(submitAnswers.rejected, (state)=>{
                 state.status = 'Error'
@@ -125,14 +134,28 @@ const formSlice = createSlice ({
     },
 })
 
-export const submitAnswers = createAsyncThunk<void, finishedPoem, {}>("answers/submitAnswers", async (data) => {
+export const submitAnswers = createAsyncThunk<any, finishedPoem, {}>("answers/submitAnswers", async (data) => {
+    const url = `https://bio-poem.onrender.com/api/v1/poems/${data.id}/create-poem`;
+    console.log(url);
     try {
-        const response = await submitPoem(data);
+        const response = await axios.post(url, data.data);
         console.log(response);
+        return response;
     } catch (error) {
-        console.error(error)
-        throw error
+        console.error(error);
+        throw error;
     }
 })
-export const { forward, back, updateAnswers, selectTheme, submitPoemAnswers, resetState, selectFontColor, setView } = formSlice.actions
+export const { forward, back, updateAnswers, selectTheme, submitPoemAnswers, resetState, selectFontColor, setView, selectFontFamily } = formSlice.actions
 export default formSlice.reducer;
+
+
+
+
+// try {
+//     const response = await submitPoem(data);
+//     console.log(response);
+// } catch (error) {
+//     console.error(error)
+//     throw error
+// }

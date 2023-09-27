@@ -15,8 +15,7 @@ export const Complete = () => {
         dispatch(resetUser())
         dispatch(resetProfile())
         navigate('/')
-    }
-
+    };
     
 
   return (

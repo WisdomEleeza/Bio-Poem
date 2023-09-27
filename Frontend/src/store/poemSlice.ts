@@ -40,24 +40,26 @@ const initialState: poemState = {
     recentPoems: [],
     singlePoem:{
         _id: "",
-  firstName: "",
-  lastName: "",
-  adjectives: "",
-  importantRelation: "",
-  loves: "",
-  feelings: "",
-  fears: "",
-  accomplishments: "",
-  expectations: "",
-  residence: "",
-  upvotes: 0,
-  downvotes: 0,
-  backgroundTheme: "",
-  profileImage: "",
-  user: {
-    _id:"",
-    username:"",
-    profileImage: "",
+        firstName: "",
+        lastName: "",
+        adjectives: "",
+        importantRelation: "",
+        loves: "",
+        feelings: "",
+        fears: "",
+        accomplishments: "",
+        expectations: "",
+        residence: "",
+        upvotes: 0,
+        downvotes: 0,
+        backgroundTheme: "",
+        profileImage: "",
+        fontColor: "",
+        fontFamily: "",
+        user: {
+            _id:"",
+            username:"",
+            profileImage: "",
   }
     },
     popularPoems : [],
@@ -124,13 +126,39 @@ const poemSlice = createSlice({
     reducers:{
         setShowModal: (state)=>{
             state.showModal = !state.showModal
+            if(state.showModal === false){
+                state.singlePoem = {
+                    _id: "",
+                    firstName: "",
+                    lastName: "",
+                    adjectives: "",
+                    importantRelation: "",
+                    loves: "",
+                    feelings: "",
+                    fears: "",
+                    accomplishments: "",
+                    expectations: "",
+                    residence: "",
+                    upvotes: 0,
+                    downvotes: 0,
+                    backgroundTheme: "",
+                    profileImage: "",
+                    fontColor: "",
+                    fontFamily: "",
+                    user: {
+                        _id:"",
+                        username:"",
+                        profileImage: "",
+                    }
+                }
+            }
         },
         setPoemData: (state, action) => {
             state.poemData = action.payload;
-          },
-          setPoemSingleData:(state,{payload})=>{
+        },
+        setPoemSingleData:(state,{payload})=>{
             state.singlePoem = payload
-          }
+        },
     },
     extraReducers(builder) {
         builder
@@ -174,5 +202,3 @@ const poemSlice = createSlice({
 
 export const {setShowModal, setPoemData,setPoemSingleData}  = poemSlice.actions
 export default poemSlice.reducer
-// export const selectRecentPoems = (state: RootState) => state.poem.recentPoems
-// export const selectPopularPoems = (state: RootState) => state.poem.popularPoem

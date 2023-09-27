@@ -1,15 +1,9 @@
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5'
 import {BiDownvote, BiUpvote } from 'react-icons/bi'
 import { IoClose } from 'react-icons/io5'
-// import { Themes } from './Themes'
 import { useAppSelector } from '../store/store'
 import { useState } from 'react'
-// import profile from '../assets/searchImage.png'
 
-
-// type themeProps = {
-//     currentOption: string,
-// }
 
 
 export const CardPreview: React.FC = () => {
@@ -18,6 +12,7 @@ export const CardPreview: React.FC = () => {
     const userPoem = useAppSelector((state)=> state.form.answers);
     const profileImg = useAppSelector(state=> state.userProfile.userImage)  
     const selectedFontColor = useAppSelector(state => state.form.answers.fontColor);
+    const chosenFont = useAppSelector(state=> state.form.answers.fontFamily);
 
 
 
@@ -32,8 +27,8 @@ return (
                     </div>
                     {/* Preview */}
                     {view ?
-                        <div className='border border-customGrey1 rounded-lg p-4 lg:w-full'>
-                            <div className='rounded-lg border border-black bg-contain h-72 relative overflow-hidden mx-auto lg:w-full xl:w-[480px]' style={{background: userPoem.backgroundTheme.length <= 9 ? userPoem.backgroundTheme: 'none'}}>
+                        <div className='border border-customGrey1 rounded-lg p-4 lg:w-full' style={{fontFamily: chosenFont}}>
+                            <div className='rounded-lg border border-black bg-contain h-72 relative overflow-hidden mx-auto lg:w-full' style={{background: userPoem.backgroundTheme.length <= 9 ? userPoem.backgroundTheme: 'none'}}>
                                 {userPoem.backgroundTheme.length > 9 ?
                                     <img 
                                         src={ userPoem.backgroundTheme} 
@@ -41,7 +36,7 @@ return (
                                         style={userPoem.backgroundTheme.length <= 9 ? {display: 'none'} : undefined  }/>
                                         : undefined
                                 }
-                                <div className='z-40 relative px-4 py-1 h-full'>
+                                <div className='z-40 relative px-4 py-1 h-full w-full'>
                                     <div className='flex items-center'>
                                         <img src={profileImg} alt='Profile Image' className='w-6 h-6 rounded-full'/>
                                         <div className='ml-3 text-xs' style={{color: selectedFontColor}}>{userPoem.firstName +' '+ userPoem.lastName}</div>
